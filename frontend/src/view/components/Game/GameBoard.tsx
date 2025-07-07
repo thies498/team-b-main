@@ -135,7 +135,8 @@ export const GameBoard = ({
                                     left: style.left ?? "auto",
                                     right: style.right ?? "auto",
                                 }}
-                                transition={{ duration: 0.5, ease: "easeInOut" }}
+                                transition={{ duration: 0.4, ease: "easeInOut" }}
+                                whileHover={{ scale: 1.5 }}
                             />
                         );
                     })}
