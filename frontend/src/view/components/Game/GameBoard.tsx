@@ -10,25 +10,23 @@ import { CharacterName, DesertTile, Player } from "@src/types";
 function PlacementPosition({
     handleTilePlacement,
     desertTiles,
+    selectedTile,
 }: {
     handleTilePlacement: (pos: number) => void;
-    desertTiles: DesertTile[];
+    desertTiles: DesertTile[]
+    selectedTile: DesertTile;
 }) {
     const fields = Array.from({ length: 16 }, (_, i) => i + 1);
 
     const isNeighbor = (pos: number) => {
-        if (pos === 16) {
-            return desertTiles.some(
-                ({ position: tilePos }) => tilePos === 15 || tilePos === 16 || tilePos === 1
-            );
-        }
-        if (pos === 1) {
-            return desertTiles.some(
-                ({ position: tilePos }) => tilePos === 1 || tilePos === 2 || tilePos === 16
-            );
-        }
-        return desertTiles.some(({ position: tilePos }) => Math.abs(tilePos - pos) <= 1);
+        return desertTiles.some(tile => tile.ownerId !== selectedTile.ownerId && Math.abs(tile.position - pos) === 1);
     };
+
+    const isNotChangeable = (pos: number) => {
+        return desertTiles
+            .some(tile => tile.position === pos &&
+                (tile.ownerId !== selectedTile.ownerId  || tile.type === selectedTile.type));
+    }
 
     const { camels } = useGame();
     const isCamel = (pos: number) => {
@@ -38,7 +36,7 @@ function PlacementPosition({
     return (
         <>
             {fields.map((pos) => {
-                if (isNeighbor(pos) || isCamel(pos)) {
+                if (isNeighbor(pos) || isCamel(pos) || isNotChangeable(pos)) {
                     return null;
                 }
                 if (pos == 1){
@@ -146,6 +144,7 @@ export const GameBoard = ({
                         <PlacementPosition
                             handleTilePlacement={handleTilePlacement}
                             desertTiles={desertTiles}
+                            selectedTile={selectedTile}
                         />
                     )}
                 </div>

@@ -18,6 +18,7 @@ import tuc.isse.services.player.PlayerTilesService;
 import tuc.isse.utils.Logger;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 /**
@@ -138,8 +139,14 @@ public class GameActionsService {
 
         gameRoundService.endTurn(player);
 
+        //creates tileDTO for frontend
         Map<String, Object> payload = new HashMap<>();
-        payload.put("tiles", playerTilesService.placeDesertTile(field));
+        List<DesertTileEntity> tiles = playerTilesService.placeDesertTile(field);
+        List<DesertTileDTO> tileDTOs = tiles.stream()
+                .map(DesertTileDTO::new)
+                .collect(Collectors.toList());
+
+        payload.put("tiles", tileDTOs);
 
         //creating chat message
         ChatModel logMessage = new ChatModel();
