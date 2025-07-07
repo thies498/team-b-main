@@ -13,7 +13,7 @@ import { toast } from "react-toastify";
 //export const REACT_APP_API_HOST = `${REACT_APP_HOST}/api/v1`;
 
 export const REACT_APP_HOST =
-    process.env.NEXT_PUBLIC_BACKEND_URL || "team-b-main-production.up.railway.app";
+    process.env.NEXT_PUBLIC_BACKEND_URL || "https://team-b-main-production.up.railway.app";
 export const REACT_APP_API_HOST = `${REACT_APP_HOST}/api/v1`;
 
 class ApiService {
