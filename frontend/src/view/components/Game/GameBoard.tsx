@@ -124,6 +124,9 @@ export const GameBoard = ({
                     {desertTiles.map(({ position, type, ownerId }, idx) => {
                         const style = getTilePosition(position);
                         const character = getPlayerCharacter(players, ownerId);
+                        console.log("character " + character)
+                        console.log("type " +type.toLowerCase())
+                        console.log(`gameimg/tiles/${type.toLowerCase()+character}.png`)
                         return (
                             <motion.img
                                 key={idx}
