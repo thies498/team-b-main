@@ -12,8 +12,8 @@ import lombok.*;
 @NoArgsConstructor
 public class PlayerEntity {
     public static final int INITIAL_MONEY = 3;
-    public static final int MAX_NAME_LENGTH = 12;
-    public static final int MIN_NAME_LENGTH = 3;
+    public static final int MAX_NAME_LENGTH = 20;
+    public static final int MIN_NAME_LENGTH = 2;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

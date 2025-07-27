@@ -14,6 +14,9 @@ public class CreateGameRequest {
     @Schema(description = "Whether the game is private", example = "false")
     private Boolean isPrivate;
 
+    @Schema(description = "Whether the game has random player order", example = "false")
+    private Boolean isRandom;
+
     @Schema(description = "Host player info")
     private CreatePlayerRequest host;
 }

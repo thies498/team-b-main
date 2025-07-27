@@ -69,6 +69,7 @@ public class GameCreationService {
         game.setRoomCode(roomCode);
 
         // 4. Set game properties from the request
+        game.setIsRandom(gameRequest.getIsRandom());
         game.setIsPrivate(gameRequest.getIsPrivate());
         game.setName(gameRequest.getName());
 

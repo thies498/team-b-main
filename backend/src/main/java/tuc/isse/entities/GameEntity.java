@@ -15,10 +15,10 @@ import java.util.List;
 public class GameEntity {
     public static final int MIN_PLAYERS = 2;
     public static final int MAX_PLAYERS = 8;
-    public static final int MAX_PUBLIC_GAMES = 50;
+    public static final int MAX_PUBLIC_GAMES = 10;
 
-    public static final int MAX_LOBBYNAME_LENGTH = 12;
-    public static final int MIN_LOBBYNAME_LENGTH = 3;
+    public static final int MAX_LOBBYNAME_LENGTH = 20;
+    public static final int MIN_LOBBYNAME_LENGTH = 2;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +27,7 @@ public class GameEntity {
     private String name;
     private String roomCode;
     private Boolean isPrivate = false;
+    private Boolean isRandom = false;
 
     // The current round number in the game
     private int round;
