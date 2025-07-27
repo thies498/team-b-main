@@ -109,7 +109,12 @@ public class GameLifecycleService {
         // 4.1. Reset the game state
         game.setState(GameEntity.GameState.WAITING);
 
-        // 4.2. Reinitialize the game
+        // 4.2. Randomizing Order
+        if (game.getIsRandom()) {
+            playerRepository.findAll().forEach(p -> p.setAge((int) (Math.random() * 90)));
+        }
+
+        // 4.3. Reinitialize the game
         gameInitService.init(game);
 
         // 5. Save the game state
