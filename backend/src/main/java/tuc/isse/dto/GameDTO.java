@@ -19,6 +19,7 @@ public class GameDTO {
     private String name;
     private String roomCode;
     private String state;
+    private Boolean isRandom;
     private Boolean isPrivate;
     private int round;
     private int turn;
@@ -35,6 +36,7 @@ public class GameDTO {
         this.id = game.getId();
         this.name = game.getName();
         this.roomCode = game.getRoomCode();
+        this.isRandom = game.getIsRandom();
         this.isPrivate = game.getIsPrivate();
         this.round = game.getRound();
         this.turn = game.getTurn();
