@@ -58,11 +58,15 @@ const BoardCamel = ({ camel, camels, desertTiles }: BoardCamelProps) => {
                     <div className="bg-yellow-200 text-black px-2 py-1 rounded shadow">
                         {camels.sort((a, b) => a.racePosition - b.racePosition).map((c) => (
                             <div key={c.color} className="flex items-center">
-                                <img
-                                    src={`/camel/board/${c.color.toLowerCase()}.png`}
-                                    className="object-contain w-6 h-6 mr-2"
-                                    alt={c.color}
-                                />
+                                <div
+                                    className="w-5 h-5 mr-2 rounded"
+                                    style={{ backgroundColor: c.color.toLowerCase() }}
+                                ></div>
+                                {/*<img*/}
+                                {/*    src={`/camel/board/${c.color.toLowerCase()}.png`}*/}
+                                {/*    className="object-contain w-6 h-6 mr-2"*/}
+                                {/*    alt={c.color}*/}
+                                {/*/>*/}
                                 <span>{c.color}</span>
                                 <span className="ml-2">{c.racePosition}</span>
                             </div>

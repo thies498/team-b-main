@@ -13,7 +13,7 @@ const DiceBox = ({ camel }: { camel: Camel }) => {
     if (!camel.moved) {
         return (
             <div
-                className={`w-16 h-16 rounded-lg opacity-50`}
+                className={`w-16 h-16 rounded-lg opacity-80`}
                 style={{ backgroundColor: camel.color.toLowerCase() }}
             />
         );
