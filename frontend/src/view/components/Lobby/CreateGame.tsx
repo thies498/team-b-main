@@ -3,6 +3,7 @@ import { Button, Input, Range, Toggle } from "react-daisyui";
 import { FaCopy } from "react-icons/fa6";
 import { IconBaseProps } from "react-icons";
 import { RawGame, RawPlayer } from "@src/types";
+import { useGame } from "@src/hooks/useGame";
 
 interface CreateGameProps {
     goBack: () => void;
@@ -10,6 +11,7 @@ interface CreateGameProps {
 }
 
 export function CreateGame({ goBack, handleCreateGame }: CreateGameProps) {
+    const {isRandom, setIsRandom} = useGame();
     const [gameName, setGameName] = useState("");
     const [isPrivate, setIsPrivate] = useState(false);
     const [playerName, setPlayerName] = useState("");
@@ -17,14 +19,20 @@ export function CreateGame({ goBack, handleCreateGame }: CreateGameProps) {
 
     const handleClick = async () => {
         try {
+
+            const age = isRandom
+                ? Math.floor(Math.random() * 90)
+                : playerAge;
+
             const player: RawPlayer = {
                 name: playerName,
-                age: playerAge,
+                age: age,
             }
 
             const game: RawGame = {
                 name: gameName,
                 isPrivate: isPrivate,
+                isRandom: isRandom,
             };
 
             await handleCreateGame(player, game);
@@ -52,7 +60,7 @@ export function CreateGame({ goBack, handleCreateGame }: CreateGameProps) {
                 <div className="mb-4">
                     <label className="block mb-2 text-sm font-medium">Private Game</label>
                     <div className="flex items-center gap-4">
-                        <Toggle checked={isPrivate} onChange={() => setIsPrivate((prev) => !prev)} />
+                        <Toggle checked={isPrivate} onChange={() => setIsPrivate((prev) => !prev)} defaultChecked color="warning" />
                     </div>
                 </div>
 
@@ -82,17 +90,35 @@ export function CreateGame({ goBack, handleCreateGame }: CreateGameProps) {
                     />
                 </div>
 
-                <div className="mb-4">
-                    <label className="block mb-2 text-sm font-medium">Your Age</label>
-                    <div className="flex items-center gap-4">
-                        <Range
-                            value={playerAge}
-                            size="xs"
-                            color="primary"
-                            onChange={(e) => setPlayerAge(Number(e.target.value))}
-                        />
-                        <span className="text-sm">{playerAge}</span>
+                {!isRandom && (
+                    <div className="mb-4">
+                        <label className="block mb-2 text-sm font-medium">Your Age</label>
+                        <div className="flex items-center gap-4">
+                            <Range
+                                value={playerAge}
+                                size="xs"
+                                color="primary"
+                                min={0}
+                                max={100}
+                                onChange={(e) => setPlayerAge(Number(e.target.value))}
+                            />
+                            <input
+                                type="number"
+                                className="w-11 p-1 border rounded text-sm text-gray-800 "
+                                min={0}
+                                max={100}
+                                value={playerAge}
+                                onChange={(e) => setPlayerAge(Number(e.target.value))}
+                            />
+                        </div>
                     </div>
+                )}
+            </div>
+
+            <div className="mb-4">
+                <label className="block mb-2 text-sm font-medium">Random Age</label>
+                <div className="flex items-center gap-4">
+                    <Toggle checked={isRandom} onChange={() => setIsRandom((prev) => !prev)} defaultChecked color="warning" />
                 </div>
             </div>
 

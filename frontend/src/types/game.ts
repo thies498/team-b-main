@@ -5,6 +5,7 @@ export type GameState = "WAITING" | "IN_PROGRESS" | "FINISHED";
 export interface RawGame {
     name: string;
     isPrivate: boolean;
+    isRandom: boolean;
 }
 
 export interface Game extends RawGame {

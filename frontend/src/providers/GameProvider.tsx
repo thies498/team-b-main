@@ -14,6 +14,7 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
 
     const [id, setId] = useState<number | undefined>(undefined);
     const [state, setState] = useState<GameState>("WAITING");
+    const [isRandom, setIsRandom] = useState(false);
     const [players, setPlayers] = useState<Player[]>([]);
     const [hostId, setHostId] = useState<number | null>(null);
     const [turn, setTurn] = useState<number>(0);
@@ -75,6 +76,7 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
 
         if (game.id !== undefined) setId(game.id);
         if (game.state !== undefined) setState(game.state);
+        if (game.isRandom !== undefined) setIsRandom(game.isRandom);
         if (game.players !== undefined) setPlayers(game.players);
         if (game.turn !== undefined) setTurn(game.turn);
         if (game.currentPlayerId !== undefined) setCurrentPlayerId(game.currentPlayerId);
@@ -154,6 +156,7 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
             value={{
                 id,
                 state,
+                isRandom,
                 players,
                 turn,
                 currentPlayerId,
@@ -187,6 +190,7 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
                 loading,
 
                 setName,
+                setIsRandom,
                 setIsPrivate,
 
                 selectedCharacter,

@@ -5,6 +5,7 @@ interface GameContextType extends Game {
 
     setId: (id: number) => void;
     setState: (state: GameState) => void;
+    setIsRandom: (isRandom: (prev: any) => boolean) => void;
     setPlayers: (players: Player[]) => void;
     setTurn: (turn: number) => void;
     setCurrentPlayerId: (currentPlayer: number | null) => void;
