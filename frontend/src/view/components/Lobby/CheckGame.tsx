@@ -71,7 +71,7 @@ export function CheckGame({ checkGame, handleJoinGame, goBack }: CheckGameProps)
                         Players: {checkGame?.players.length} / 8
                     </p>
                     <p className="text-sm mt-2 text-gray-300">State: {checkGame?.state}</p>
-                    <p className="text-sm mt-2 text-gray-300">Order: {checkGame?.isRandom ? "🎲 Random" : "📋 Join Order"}</p>
+                    <p className="text-sm mt-2 text-gray-300">Order: {checkGame?.isRandom ? "🎲 Random" : "📋 Age Order"}</p>
                 </div>
             </div>
 

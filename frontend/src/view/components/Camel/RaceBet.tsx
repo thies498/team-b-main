@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, {useCallback, useState} from "react";
 import { useGame } from "@hooks";
 import { toast } from "react-toastify";
 import { Player } from "@src/types";
 import WebSocketService from "@src/services/websockets/socket";
 
 export const CamelBetRace = () => {
-    const { currentPlayerId, player, roomCode } = useGame();
+    const { currentPlayerId, player, roomCode, raceBettingCards, players } = useGame();
 
     const [winMenuVisible, setWinMenuVisible] = useState(false);
     const [loseMenuVisible, setLoseMenuVisible] = useState(false);
@@ -83,6 +83,10 @@ export const CamelBetRace = () => {
         handleRaceBet(item, "loser");
     };
 
+    //if the list is empty it doesn't show
+    const loseList = raceBettingCards.some(card => card.playerId !== null && card.betType === "LOSER")
+    const winList = raceBettingCards.some(card => card.playerId !== null && card.betType === "WINNER")
+
     return (
         <div className="w-full h-full flex flex-col items-center justify-evenly px-4 gap-2 relative">
             <img
@@ -95,6 +99,27 @@ export const CamelBetRace = () => {
 
             {winMenuVisible && (
                 <div className="absolute left-10 top-20 translate-y-10 bg-yellow-secondary border-yellow-dark border-2 rounded-lg shadow-lg w-48 py-2">
+
+                    {winList && (
+                        <div className="absolute right-48 -translate-y-2.5 bg-yellow-secondary border-yellow-dark border-2 rounded-lg shadow-lg w-64 py-2">
+                            <div className="px-1 py-2" >
+                                <h6>Winner RACE BET List:</h6>
+                                <ul className="grid grid-cols-5 gap-1">
+                                    {raceBettingCards.filter(card => card.playerId !== null && card.betType === "WINNER").map((item, index) => (
+                                        <li className={"p-0.5"}
+                                            key={index}>
+                                            {<img
+                                                src={`/characters/icons/${players.find(p => p.id === item.playerId)?.character}_icon.png`}
+                                                className="w-10"
+                                                alt="Racebeting list"
+                                            />}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
+                    )}
+
                     <div
                         className={
                             White
@@ -158,6 +183,25 @@ export const CamelBetRace = () => {
 
             {loseMenuVisible && (
                 <div className="absolute left-10 top-64 translate-x-0 bg-yellow-secondary border-yellow-dark border-2 rounded-lg shadow-lg w-48 py-2">
+                    {loseList && (
+                        <div className="absolute right-48 -translate-y-2.5 bg-yellow-secondary border-yellow-dark border-2 rounded-lg shadow-lg w-64 py-2">
+                            <div className="px-1 py-2" >
+                                <h6>Loser RACE BET List:</h6>
+                                <ul className="grid grid-cols-5 gap-1">
+                                    {raceBettingCards.filter(card => card.playerId !== null && card.betType === "LOSER").map((item, index) => (
+                                        <li className={"p-0.5"}
+                                            key={index}>
+                                            {<img
+                                                src={`/characters/icons/${players.find(p => p.id === item.playerId)?.character}_icon.png`}
+                                                className="w-10"
+                                                alt="Racebeting list"
+                                            />}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
+                    )}
                     <div
                         className={
                             White
